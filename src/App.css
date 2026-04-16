@@ -1,3 +1,12 @@
+.bg-red {
+  background-color: red;
+}
+
+.bg-purple {
+  background-color: purple;
+}
+
+/* ----------------------------------------------------------- */
 /* LandingPage.css */
 * {
   margin: 0;
@@ -34,13 +43,14 @@
   top: 100px;
   backdrop-filter: blur(4px);
   background-color: rgba(0, 0, 0, 0.5);
-  gap: 20px;
+  gap: 10vw;
 }
 
 .landing_content {
+  /* DEBUGGING  --  este code rompe el "layout" -------------------------------
   margin-top: 430px;
   margin-left: 100px;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   z-index: 1;
   text-align: center;
   /* background-color: red; */
