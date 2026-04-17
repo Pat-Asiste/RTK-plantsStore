@@ -12,4 +12,6 @@ La aplicación web incluye:
 Se emplean las librerías `React` (UI) y `Redux Toolkit` (gestión de datos y eventos).
 
 - Autor: *IBM*
-- Fork Developer: *Pat-Asiste*
+- Fork Developer: *Patrick Barrantes (Pat-Asiste)*
+
+`Advertencia:` Este código es solo un prototipo de la app! Y fue realizado con fines educativos.

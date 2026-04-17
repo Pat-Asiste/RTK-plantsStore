@@ -1,6 +1,5 @@
 /* Reset some default styles */
 body,
-h1,
 ul {
     margin: 0;
     padding: 0;
@@ -12,6 +11,31 @@ body {
     background-color: #f0f0f0;
 }
 
+/* selectors added ----------------------------------- */
+/* Only for Developing--------- */
+/* .img-width {
+    width: 50px;
+} */
+.section-title {
+    text-align: center;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+h1.section-title {
+    display: inline-block;
+    width: fit-content;
+}
+
+.flex-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --------------------------------------------------- */
 /* Navbar */
 .navbar {
     background-color: #4CAF50;
