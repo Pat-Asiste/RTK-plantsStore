@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';                 // useSelector -- es code sin usar. (dead-code)
+import { addItem } from './CartSlice';
 import './ProductList.css'
 import CartItem from './CartItem';
+
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const dispatch = useDispatch();
 
     const plantsArray = [
         {
@@ -252,6 +256,14 @@ function ProductList({ onHomeClick }) {
         e.preventDefault();
         setShowCart(false);
     };
+
+    const [addedToCart, setAddedToCart] = useState({});                             /* obj{p1...} -- Guarda "plantas seleccionadas" como propiedades de obj{} */
+
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product));
+        setAddedToCart((prevstate) => ({ ...prevstate, [product.name]: true }));    /* REDUNDANTE -- ya se guardó en el store.js */
+    };
+
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -277,16 +289,16 @@ function ProductList({ onHomeClick }) {
                     {plantsArray.map((objSeccion, index) => (
                         <div key={index} className="bg-red">
                             <div className="flex-vertical">
-                                <h1 className="section-title">{objSeccion.category}</h1>                   {/* OJO --------------------- */}
+                                <h1 className="section-title">{objSeccion.category}</h1>
                             </div>
                             <div className="product-list">
                                 {objSeccion.plants.map((planta, plantaIndex) => (
-                                    <div key={plantaIndex} className='product-card'>
+                                    <div key={plantaIndex} className='product-card'>                    {/* OJO -- 'red-badge'----------- */}
                                         <div className='product-title'>{planta.name}</div>
                                         <img src={planta.image} className="product-image" />
-                                        <div>{planta.description}</div>     {/* No tiene className-------- */}
+                                        <div>{planta.description}</div>
                                         <div className="product-price">{planta.cost}</div>
-                                        <button className="product-button">Añadir al Carrito</button>
+                                        <button className="product-button" onClick={() => handleAddToCart(planta)}>{addedToCart[planta.name] ? "Añadido" : "Añadir al Carrito"}</button>
                                     </div>
                                 ))}
                             </div>
