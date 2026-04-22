@@ -35,6 +35,20 @@ h1.section-title {
     align-items: center;
 }
 
+.flex-horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.number-of-items {
+    font-size: large;
+}
+
+.translate {
+    transform: translate(2.75rem);
+}
+
 /* --------------------------------------------------- */
 /* Navbar */
 .navbar {
