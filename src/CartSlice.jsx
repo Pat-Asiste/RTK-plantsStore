@@ -9,7 +9,7 @@ export const CartSlice = createSlice({
     addItem: (state, action) => {
       const itemToAdd = state.items.find((planta) => (planta.name === action.payload.name));  // return "1 solo" elemento
       if (!itemToAdd) { state.items.push({ ...action.payload, quantity: 1 }); }               // If, la planta está repetida, no hagas nada
-      else { itemToAdd.quantity++; }                                                          // buenas prácticas
+      // else { itemToAdd.quantity++; }                                                          // buenas prácticas
 
 
     },

@@ -4,39 +4,44 @@ import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
-  const cart = useSelector(state => state.cart.items);
+  const pickedPlants = useSelector(state => state.cart.items);                        /* Es un [{}, ... ] */
   const dispatch = useDispatch();
 
   // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {
-
-  };
+  const totalAmount = pickedPlants.reduce(                                            /* " .reduce() "  --  ES PARECIDO AL BUCLE "FOR"   .reduce((acc,num) => (acc + num), initialValue) */
+    (acc, planta) => (acc + parseFloat(planta.cost.slice(1)) * planta.quantity), 0
+  );
 
   const handleContinueShopping = (e) => {
-
+    onContinueShopping(e);                                                            // "code" importado usando Component's props
   };
 
 
 
   const handleIncrement = (item) => {
+    dispatch(updateQuantity({ name: item.name, newQuantity: item.quantity + 1 }));    // He usado un obj{}, porque su 'case reducer' usa DESESTRUCTURING
   };
 
   const handleDecrement = (item) => {
-
+    if (item.quantity > 1) {
+      dispatch(updateQuantity({ name: item.name, newQuantity: item.quantity - 1 }));
+    } else {
+      dispatch(removeItem(item.name));
+    }
   };
 
   const handleRemove = (item) => {
+    dispatch(removeItem(item.name));
   };
 
   // Calculate total cost based on quantity for an item
-  const calculateTotalCost = (item) => {
-  };
+  const calculateTotalCost = (item) => (parseFloat(item.cost.slice(1)) * item.quantity);
 
   return (
     <div className="cart-container">
-      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
+      <h2 style={{ color: 'black' }}>Total Cart Amount: ${totalAmount}</h2>
       <div>
-        {cart.map(item => (
+        {pickedPlants.map(item => (
           <div className="cart-item" key={item.name}>
             <img className="cart-item-image" src={item.image} alt={item.name} />
             <div className="cart-item-details">

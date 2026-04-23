@@ -49,6 +49,12 @@ h1.section-title {
     transform: translate(2.75rem);
 }
 
+.product-button.disabled-btn,
+.product-button.disabled-btn:hover {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
 /* --------------------------------------------------- */
 /* Navbar */
 .navbar {
@@ -147,7 +153,7 @@ h1.section-title {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+    /* transition: background-color 0.3s ease-in-out; */
     margin-top: 10px;
 }
 
@@ -264,7 +270,7 @@ h1.section-title {
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
-    transition-duration: 0.4s;
+    /* transition-duration: 0.4s; */
     cursor: pointer;
 }
 

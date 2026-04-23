@@ -7,6 +7,11 @@ import CartItem from './CartItem';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+
+    const pickedPlants = useSelector(state => state.cart.items);
+    const NumberOfPickedPlants = pickedPlants.reduce((acc, planta) => (acc + planta.quantity), 0)   /* " .reduce() "  --  ES PARECIDO AL BUCLE "FOR"   .reduce((acc,num) => (acc + num), initialValue) */
+    const isItemPicked = (itemName) => (pickedPlants.some((planta) => (planta.name === itemName)));
+
     const dispatch = useDispatch();
 
     const plantsArray = [
@@ -257,11 +262,8 @@ function ProductList({ onHomeClick }) {
         setShowCart(false);
     };
 
-    const [addedToCart, setAddedToCart] = useState({});                             /* obj{p1...} -- Guarda "plantas seleccionadas" como propiedades de obj{} */
-
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
-        setAddedToCart((prevstate) => ({ ...prevstate, [product.name]: true }));    /* REDUNDANTE -- ya se guardó en el store.js */
     };
 
     return (
@@ -281,7 +283,7 @@ function ProductList({ onHomeClick }) {
                 </div>
                 <div style={styleObjUl}>
                     <div> <a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants</a></div>
-                    <div> <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}><h1 className='cart'><span className='number-of-items translate flex-vertical flex-horizontal'>Nu</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68"><rect width="156" height="156" fill="none"></rect><circle cx="80" cy="216" r="12"></circle><circle cx="184" cy="216" r="12"></circle><path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute"></path></svg></h1></a></div>
+                    <div> <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}><h1 className='cart'><span className='number-of-items translate flex-vertical flex-horizontal'>{NumberOfPickedPlants}</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68"><rect width="156" height="156" fill="none"></rect><circle cx="80" cy="216" r="12"></circle><circle cx="184" cy="216" r="12"></circle><path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute"></path></svg></h1></a></div>
                 </div>
             </div>
             {!showCart ? (
@@ -298,7 +300,7 @@ function ProductList({ onHomeClick }) {
                                         <img src={planta.image} className="product-image" />
                                         <div>{planta.description}</div>
                                         <div className="product-price">{planta.cost}</div>
-                                        <button className="product-button" onClick={() => handleAddToCart(planta)}>{addedToCart[planta.name] ? "Añadido" : "Añadir al Carrito"}</button>
+                                        <button className={isItemPicked(planta.name)? "product-button disabled-btn": "product-button"} onClick={() => handleAddToCart(planta)}>{isItemPicked(planta.name) ? "Añadido" : "Añadir al Carrito"}</button>
                                     </div>
                                 ))}
                             </div>
